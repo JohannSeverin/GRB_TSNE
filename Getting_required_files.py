@@ -151,12 +151,14 @@ def update_LCs():
     # 
 
 
+
+if __name__ == "__main__":
 # Make folders if not already in:
-if "summary" not in os.listdir():
-	os.mkdir("summary")
-if "DataFrames" not in os.listdir():
-	os.mkdir("DataFrames")
+    if "summary" not in os.listdir():
+        os.mkdir("summary")
+    if "DataFrames" not in os.listdir():
+        os.mkdir("DataFrames")
 
 # Update the lightcurves
 log = update_LCs()
-print(log)
+
