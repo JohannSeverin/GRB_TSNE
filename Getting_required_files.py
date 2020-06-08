@@ -80,8 +80,29 @@ def fluence_data_to_df():
         os.mkdir("DataFrames")
     fluence.to_pickle("DataFrames/fluence_data.dat")
 
+def get_LC(name, trig_id):
+    """
+    Function to download a lightcurve given it's name and trig_id
+    """
+    # Find URL
+    if len(trig_id) == 6:
+        lc_url = "https://swift.gsfc.nasa.gov/results/batgrbcat/%s/data_product/00%s000-results/lc/64ms_lc_ascii.dat"%(name, trig_id)
+    elif len(trig_id) == 11:
+        lc_url = "https://swift.gsfc.nasa.gov/results/batgrbcat/%s/data_product/%s-results/lc/64ms_lc_ascii.dat"%(name, trig_id)
+    else:
+        print('Download %s manually (trig_id to url)'%(name))
+        return False 
 
-def get_light_curves():
+    try:
+        tmp_path = download_file(lc_url)
+        batlc_path = "LightCurves/%s_lc.dat"%(name)
+        shutil.move(tmp_path, batlc_path)
+    except:
+        print("Download %s manually (not automatically downloaded)")
+        return False
+    return True
+
+def update_LCs():
     """ Function that downloads the availible light curves. This function will take the duration_data.dat to get list of 
     trig_ids and GRBnames. """
     
@@ -93,22 +114,46 @@ def get_light_curves():
     if 'LightCurves' not in os.listdir():
         os.mkdir("LightCurves")
 
+    # Load trig_ids and names from file
     trig_ids = list(pd.read_pickle("DataFrames/duration_data.dat").loc[:, 'Trig_id'].str.strip())
-    downloaded = map(lambda s: s[: -7], os.listdir("LightCurves"))  # Ret lige i den her
+    names = list(pd.read_pickle("DataFrames/duration_data.dat").index)
 
-    operations = {'Downloaded' : [], 'Eroor': [], 'Existed':[]}
+    # Already downloaded files
+    downloaded = map(lambda s: s[: -7], os.listdir("LightCurves"))
     
-    print(list(trig_ids))
-    while len(trig_ids) > 0:
-        get = trig_ids.pop(-1)
+    operations = {'Downloaded' : [], 'Error': [], 'Existed':[]}
+
+    # Loop through names
+    for name, trig_id in zip(names, trig_ids):
+        if name not in downloaded:
+            success = get_LC(name, trig_id)
+        else:
+            print(f"{name} is already downloaded")
+            operations['Existed'].append(name)
+            continue
+
+        if success:
+            print(f"{name} downloaded successfully ")
+            operations['Downloaded'].append(name)
+        else:
+            print(f"{name} not downloaded")
+            operations['Error'].append(name)
 
 
+    return operations
 
+
+    # downloaded = map(lambda s: s[: -7], os.listdir("LightCurves"))  # Ret lige i den her
+    # 
+
+    
+
+# Make folders if not already in:
 if "summary" not in os.listdir():
 	os.mkdir("summary")
-
 if "DataFrames" not in os.listdir():
 	os.mkdir("DataFrames")
 
 
-get_light_curves()
+# Update the lightcurves
+update_LCs()
