@@ -93,14 +93,14 @@ def get_light_curves():
     if 'LightCurves' not in os.listdir():
         os.mkdir("LightCurves")
 
-    trig_ids = pd.read_pickle("DataFrames/duration_data.dat").loc[:, 'Trig_id']
+    trig_ids = list(pd.read_pickle("DataFrames/duration_data.dat").loc[:, 'Trig_id'].str.strip())
     downloaded = map(lambda s: s[: -7], os.listdir("LightCurves"))  # Ret lige i den her
 
     operations = {'Downloaded' : [], 'Eroor': [], 'Existed':[]}
     
-
+    print(list(trig_ids))
     while len(trig_ids) > 0:
-        get = trig_ids.pop(0)
+        get = trig_ids.pop(-1)
 
 
 
