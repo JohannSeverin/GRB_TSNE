@@ -19,8 +19,8 @@ def get_summary_files():
     for sum, url in zip(urls.keys(), urls.values()):
         tmp_path = download_file(url)
         file_path = "summary/{}.dat".format(sum)
-        shutil.move(tmp_path, file_path)
-    
+        shutil.move(tmp_path, file_path) 
+
 
 def duration_data_to_df():
     """
@@ -80,6 +80,7 @@ def fluence_data_to_df():
         os.mkdir("DataFrames")
     fluence.to_pickle("DataFrames/fluence_data.dat")
 
+
 def get_LC(name, trig_id):
     """
     Function to download a lightcurve given it's name and trig_id
@@ -98,9 +99,10 @@ def get_LC(name, trig_id):
         batlc_path = "LightCurves/%s_lc.dat"%(name)
         shutil.move(tmp_path, batlc_path)
     except:
-        print("Download %s manually (not automatically downloaded)")
+        print(f"Download {name} manually (not automatically downloaded)")
         return False
     return True
+
 
 def update_LCs():
     """ Function that downloads the availible light curves. This function will take the duration_data.dat to get list of 
@@ -119,19 +121,21 @@ def update_LCs():
     names = list(pd.read_pickle("DataFrames/duration_data.dat").index)
 
     # Already downloaded files
-    downloaded = map(lambda s: s[: -7], os.listdir("LightCurves"))
-    
+    downloaded = list(map(lambda s: s[: -7], os.listdir("LightCurves")))
+    print(downloaded)
+
     operations = {'Downloaded' : [], 'Error': [], 'Existed':[]}
 
     # Loop through names
     for name, trig_id in zip(names, trig_ids):
-        if name not in downloaded:
+        if name not in downloaded: # If not downloaded call function to download
             success = get_LC(name, trig_id)
         else:
             print(f"{name} is already downloaded")
             operations['Existed'].append(name)
             continue
-
+        
+        # Add to log depending on success of it
         if success:
             print(f"{name} downloaded successfully ")
             operations['Downloaded'].append(name)
@@ -146,7 +150,6 @@ def update_LCs():
     # downloaded = map(lambda s: s[: -7], os.listdir("LightCurves"))  # Ret lige i den her
     # 
 
-    
 
 # Make folders if not already in:
 if "summary" not in os.listdir():
@@ -154,6 +157,6 @@ if "summary" not in os.listdir():
 if "DataFrames" not in os.listdir():
 	os.mkdir("DataFrames")
 
-
 # Update the lightcurves
-update_LCs()
+log = update_LCs()
+print(log)
