@@ -1,5 +1,0 @@
-If I write here git does...?
-<<<<<<< HEAD
-
-=======
->>>>>>> f02a58be2b80bf4f3093c5f671cd71cc32405d57
