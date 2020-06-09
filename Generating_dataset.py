@@ -53,8 +53,9 @@ def prepare_lcs():
     
     # save backup for debugging purposes
     pd.to_pickle([unpadded_curves, grbnames, errors, max_len], "backup.dat")
+
+    # Load backup
     # (unpadded_curves, grbnames, errors, max_len) = pd.read_pickle("backup.dat")
-    # Prepare empty dataset
 
     prepared_lcs = []
 

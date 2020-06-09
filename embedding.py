@@ -12,4 +12,4 @@ fft = np.fft.rfft(non_fft_dataset)
 emb = TSNE(verbose = 2, perplexity = 30, n_iter = 50000).fit_transform(abs(fft))
 
 #saving dataset
-np.savetxt("embedding.csv",np.hstack((non_fft_dataset.index, emb)), delimiter = ',')
+np.savetxt("embedding.csv",np.vstack((non_fft_dataset.index, emb[:,0], emb[:,1])).T, delimiter = ',',fmt='%s')
