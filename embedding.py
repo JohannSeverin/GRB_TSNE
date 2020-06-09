@@ -9,7 +9,9 @@ non_fft_dataset = pd.read_pickle('non_fft_dataset.dat')
 fft = np.fft.rfft(non_fft_dataset)
 
 #running t-SNE, n_iter should be higher than 'n_termination'
-emb = TSNE(verbose = 2, perplexity = 30, n_iter = 50000).fit_transform(abs(fft))
+from config import tsne_params
+verbose, perplexity, n_iter = tsne_params['verbose'], tsne_params['perplexity'], tsne_params['n_iter']
+emb = TSNE(verbose = verbose, perplexity = perplexity, n_iter = n_iter).fit_transform(abs(fft))
 
 #saving dataset
-np.savetxt("embedding.csv",np.hstack((non_fft_dataset.index, emb)), delimiter = ',')
+np.savetxt("embedding.csv",np.vstack((non_fft_dataset.index, emb[:,0], emb[:,1])).T, delimiter = ',',fmt='%s')

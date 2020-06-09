@@ -35,7 +35,8 @@ def prepare_lcs():
 
     for file in os.listdir(path):
         try: 
-            print(f"{count}")
+            if count % 100 == 0:
+                print(f"{count} files done")
             count += 1
             length, lc = cut_norm_lc(path + file)
             if length <= 1:
@@ -52,38 +53,26 @@ def prepare_lcs():
         # os.remove(path + file)
     
     # save backup for debugging purposes
-    # pd.to_pickle([unpadded_curves, grbnames, errors, max_len], "backup.dat")
-    # (unpadded_curves, grbnames, errors), max_len = pd.read_pickle("backup.dat"), 16000
-    # for file in os.listdir(path):
-    #     try: 
-    #         print(f"{count}")
-    #         count += 1
-    #         length, lc = cut_norm_lc(path + file)
-    #         if length <= 1:
-    #             error_log += f"{file[:-7]} \t Too short \n"
-    #             continue
-    #         unpadded_curves.append(lc)
-    #         grbnames.append(file[:-7])
-    #         if length > max_len:
-    #             max_len = length
-    #     except: # If we recieve an error we log it
-    #         errors.append(file)
-    #         error_log += f"{file[:-7]} \t Couldn't cut and normalize"
-    #         print(f"error with {file}")
-    #     # os.remove(path + file)
-    
-    # # save backup for debugging purposes
-    # pd.to_pickle([unpadded_curves, grbnames, errors, max_len], "backup.dat")
-    (unpadded_curves, grbnames, errors), max_len = pd.read_pickle("backup.dat"), 16000
-    # Prepare empty dataset
+    print("LightCurves normalised and cut")
+    pd.to_pickle([unpadded_curves, grbnames, errors, max_len], "backup.dat")
+
+    # Load backup
+    # (unpadded_curves, grbnames, errors, max_len) = pd.read_pickle("backup.dat")
+
     prepared_lcs = []
 
     # Go through and pad
+    count = 0
     for lc in unpadded_curves:
         temp = np.zeros(shape = (max_len, 4))
         temp[:len(lc), :] = lc
         prepared_lcs.append(temp.reshape(-1))
-        
+
+        if count % 100 == 0:
+            print(f"{count} lightcurves padded")
+
+    del unpadded_curves
+
     # Make to DataFrame
     prepared_dataset = pd.DataFrame(prepared_lcs)
     prepared_dataset.index = grbnames[:len(prepared_dataset)]

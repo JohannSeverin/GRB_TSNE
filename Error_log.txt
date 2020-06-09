@@ -1,21 +1,31 @@
-GRB160623A 	 downloading error 
-GRB160409A 	 downloading error 
-GRB150407A 	 downloading error 
-GRB140909A 	 downloading error 
-GRB140611A 	 downloading error 
-GRB131031A 	 downloading error 
-GRB130913A 	 downloading error 
-GRB130518A 	 downloading error 
-GRB120817B 	 downloading error 
-GRB110604A 	 downloading error 
-GRB101204A 	 downloading error 
-GRB090827 	 downloading error 
-GRB090720A 	 downloading error 
-GRB071112C 	 downloading error 
-GRB071028B 	 downloading error 
-GRB071010C 	 downloading error 
-GRB071006 	 downloading error 
-GRB070227 	 downloading error 
-GRB070125 	 downloading error 
-GRB060123 	 downloading error 
-GRB041219A 	 downloading error 
+GRB150101A 	 Too short 
+GRB150710B 	 Too short 
+GRB151111A 	 Couldn't cut and normalizeGRB160525A 	 Too short 
+GRB150101B 	 Too short 
+GRB061218 	 Too short 
+GRB140311B 	 Too short 
+GRB070209 	 Too short 
+GRB070810B 	 Too short 
+GRB100628A 	 Too short 
+GRB110420B 	 Too short 
+GRB080822B 	 Too short 
+GRB170906B 	 Couldn't cut and normalizeGRB120218A 	 Couldn't cut and normalizeGRB101225A 	 Too short 
+GRB130305A 	 Couldn't cut and normalizeGRB061027 	 Too short 
+GRB070923 	 Too short 
+GRB160501A 	 Too short 
+GRB050509B 	 Too short 
+GRB081017 	 Too short 
+GRB190326A 	 Couldn't cut and normalizeGRB180718A 	 Too short 
+GRB141102A 	 Couldn't cut and normalizeGRB080315 	 Too short 
+GRB170131A 	 Couldn't cut and normalizeGRB060728 	 Too short 
+GRB050906 	 Too short 
+GRB100115A 	 Couldn't cut and normalizeGRB151114A 	 Couldn't cut and normalizeGRB151112A 	 Couldn't cut and normalizeGRB090417A 	 Too short 
+GRB120305A 	 Too short 
+GRB141229A 	 Couldn't cut and normalizeGRB101201A 	 Couldn't cut and normalizeGRB131105A 	 Couldn't cut and normalizeGRB060218 	 Too short 
+GRB081105A 	 Couldn't cut and normalizeGRB161104A 	 Too short 
+GRB070126 	 Too short 
+GRB090515 	 Too short 
+GRB151107A 	 Couldn't cut and normalizeGRB051105A 	 Too short 
+GRB170112A 	 Too short 
+GRB130822A 	 Too short 
+GRB060510A 	 Couldn't cut and normalize
