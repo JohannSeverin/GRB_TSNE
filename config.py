@@ -11,3 +11,9 @@ conf = {
     'color': np.log(duration_data.loc[grbnames].T90),
     'cmap': 'plasma',
 }
+
+tsne_params = {
+    'perplexity':  35
+    'verbose':      2
+    'n_iter':   15000
+}

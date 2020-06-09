@@ -16,5 +16,6 @@ cbar = plt.colorbar(emb_plot,None,ax)
 
 ax.set(yticks = (), xticks = ())
 
+fig.savefig("FlotPlot.jpg")
 fig.show()
 
