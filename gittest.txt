@@ -1,6 +1,1 @@
-<<<<<<< HEAD
 If I write here git does...?
-Yes, it works
-=======
-If I write here git does...?
->>>>>>> 7facb6ca87cac961316bbd0a3897987c79c3d16a
