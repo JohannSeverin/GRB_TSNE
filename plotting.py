@@ -7,15 +7,14 @@ grbnames = embedding[:,0]
 emb = embedding[:,1:].astype(float)
 
 fig, ax = plt.subplots(figsize = conf['figsize'])
+ax.set(yticks = (), xticks = (),title='Embedding')
 
 emb_plot = ax.scatter(emb[:, 0], emb[:, 1], s=conf['radius'], c=conf['color'], cmap=conf['cmap'])
-ax.set(xticks=[], yticks=[])
-
+# highlights = ax.scatter[grbnames]
 
 cbar = plt.colorbar(emb_plot,None,ax)
 
-ax.set(yticks = (), xticks = ())
 
-fig.savefig("FlotPlot.jpg")
+
 fig.show()
 
