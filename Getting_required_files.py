@@ -122,28 +122,35 @@ def update_LCs():
 
     # Already downloaded files
     downloaded = list(map(lambda s: s[: -7], os.listdir("LightCurves")))
-    print(downloaded)
+    # print(downloaded)
 
     operations = {'Downloaded' : [], 'Error': [], 'Existed':[]}
+    error_log = ""
 
     # Loop through names
     for name, trig_id in zip(names, trig_ids):
         if name not in downloaded: # If not downloaded call function to download
             success = get_LC(name, trig_id)
         else:
-            print(f"{name} is already downloaded")
+            # print(f"{name} is already downloaded")
             operations['Existed'].append(name)
             continue
         
         # Add to log depending on success of it
         if success:
-            print(f"{name} downloaded successfully ")
+            # print(f"{name} downloaded successfully ")
             operations['Downloaded'].append(name)
         else:
             print(f"{name} not downloaded")
             operations['Error'].append(name)
+            error_log += f"{name} \t downloading error \n"
+    
+    # Write errors to log
+    err_file = open("Error_log.txt", "w")
+    err_file.write(error_log)
+    err_file.close()
 
-
+    # List of operations
     return operations
 
 
@@ -152,8 +159,7 @@ def update_LCs():
 
 
 
-if __name__ == "__main__":
-# Make folders if not already in:
+if __name__ == "__main__":# Make folders if not already in:
     if "summary" not in os.listdir():
         os.mkdir("summary")
     if "DataFrames" not in os.listdir():
