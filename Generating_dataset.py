@@ -35,7 +35,8 @@ def prepare_lcs():
 
     for file in os.listdir(path):
         try: 
-            print(f"{count}")
+            if count % 100 == 0:
+                print(f"{count} files done")
             count += 1
             length, lc = cut_norm_lc(path + file)
             if length <= 1:
@@ -52,6 +53,7 @@ def prepare_lcs():
         # os.remove(path + file)
     
     # save backup for debugging purposes
+    print("LightCurves normalised and cut")
     pd.to_pickle([unpadded_curves, grbnames, errors, max_len], "backup.dat")
 
     # Load backup
@@ -60,11 +62,15 @@ def prepare_lcs():
     prepared_lcs = []
 
     # Go through and pad
+    count = 0
     for lc in unpadded_curves:
         temp = np.zeros(shape = (max_len, 4))
         temp[:len(lc), :] = lc
         prepared_lcs.append(temp.reshape(-1))
-    
+
+        if count % 100 == 0:
+            print(f"{count} lightcurves padded")
+
     del unpadded_curves
 
     # Make to DataFrame
