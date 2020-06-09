@@ -6,6 +6,7 @@ import os
 duration_data = pd.read_pickle('DataFrames/duration_data.dat')
 fluence_data = pd.read_pickle('DataFrames/fluence_data.dat')
 
+
 def cut_norm_lc(filename): #Prepare single light curve, cut to T100 and normalize by fluence
     grbname = filename[12:-7]
     #Cut lightcurve
@@ -14,7 +15,7 @@ def cut_norm_lc(filename): #Prepare single light curve, cut to T100 and normaliz
     lc = lc.loc[lc.loc[:,0].apply(lambda x: duration_data.T100_start[grbname] <= x and x <= duration_data.T100_end[grbname])]
     lc.reset_index(drop=True,inplace=True)
     lc = lc.iloc[:,[1,2,3,4]] / float(fluence_data[grbname])
-    return len(lc), lc
+    return len(lc), lc # Return length and the cutted lightcurve
     
 
 
@@ -27,25 +28,31 @@ def prepare_lcs():
     errors = []
     # Go through alle the files
     max_len = 0 # Record longest burst
-    for file in os.listdir(path):
-        
-        try: 
-            grbnames.append(file[:-7])
-            print(f"preparing {file}")
-            length, lc = cut_norm_lc(path + file)
-            if length <= 1:
-                print(file)
-                raise ValueError
-            unpadded_curves.append(lc)
-            if length > max_len:
-                max_len = length
-        except:
-            errors.append(file)
-            print(f"error with {file}")
-        # os.remove(path + file)
-    
-    pd.to_pickle(unpadded_curves, "backup.dat")
+    count = 1
 
+    error_log = ""
+
+    # for file in os.listdir(path):
+    #     try: 
+    #         print(f"{count}")
+    #         count += 1
+    #         length, lc = cut_norm_lc(path + file)
+    #         if length <= 1:
+    #             error_log += f"{file[:-7]} \t Too short \n"
+    #             continue
+    #         unpadded_curves.append(lc)
+    #         grbnames.append(file[:-7])
+    #         if length > max_len:
+    #             max_len = length
+    #     except: # If we recieve an error we log it
+    #         errors.append(file)
+    #         error_log += f"{file[:-7]} \t Couldn't cut and normalize"
+    #         print(f"error with {file}")
+    #     # os.remove(path + file)
+    
+    # # save backup for debugging purposes
+    # pd.to_pickle([unpadded_curves, grbnames, errors, max_len], "backup.dat")
+    (unpadded_curves, grbnames, errors), max_len = pd.read_pickle("backup.dat"), 16000
     # Prepare empty dataset
     prepared_lcs = []
 
@@ -60,6 +67,11 @@ def prepare_lcs():
     prepared_dataset.index = grbnames
     prepared_dataset.to_pickle('non_fft_dataset.dat')
     print(prepared_dataset)
+
+     # Write errors to log
+    err_file = open("Error_log.txt", "w")
+    err_file.write(error_log)
+    err_file.close()
 
 if __name__ == "__main__":
     prepare_lcs()
