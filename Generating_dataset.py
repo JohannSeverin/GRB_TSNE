@@ -48,7 +48,7 @@ def prepare_lcs():
                 max_len = length
         except: # If we recieve an error we log it
             errors.append(file)
-            error_log += f"{file[:-7]} \t Couldn't cut and normalize"
+            error_log += f"{file[:-7]} \t Couldn't cut and normalize \n"
             print(f"error with {file}")
         # os.remove(path + file)
     

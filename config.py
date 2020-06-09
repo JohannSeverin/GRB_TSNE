@@ -10,10 +10,11 @@ conf = {
     'radius': 5,
     'color': np.log(duration_data.loc[grbnames].T90),
     'cmap': 'plasma',
+    'grb_highlight': ['GRB191019A']
 }
 
 tsne_params = {
-    'perplexity':  35
-    'verbose':      2
-    'n_iter':   15000
+    'perplexity':  40,
+    'verbose':     2,  
+    'n_iter':   15000,
 }
