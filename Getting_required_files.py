@@ -72,7 +72,7 @@ def fluence_data_to_df():
 
     # Replace PL - fluence with CPL if it is a better fit
     CPL_better = best_fit.loc[:, 2].apply(lambda x: True if x == 'CPL' else False)
-    fluence = PL_fluence.loc[best_fit.index]
+    fluence = PL_fluence[best_fit.index]
     fluence[CPL_better] = CPL_fluence[CPL_better]
     
     # Save file
@@ -160,6 +160,7 @@ if __name__ == "__main__":
         os.mkdir("DataFrames")
 
     # Update the lightcurves
+    fluence_data_to_df()
     log = update_LCs()
 
 
