@@ -159,6 +159,8 @@ if __name__ == "__main__":
     if "DataFrames" not in os.listdir():
         os.mkdir("DataFrames")
 
-# Update the lightcurves
-log = update_LCs()
+    # Update the lightcurves
+    log = update_LCs()
+
+
 
