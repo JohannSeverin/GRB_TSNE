@@ -23,14 +23,14 @@ def prepare_lcs():
     # Go thorugh all LightCurves in the folder Light Curve and prepare them
     path = "LightCurves/"
  
-    unpadded_curves = []
-    grbnames = []
-    errors = []
-    # Go through alle the files
-    max_len = 0 # Record longest burst
-    count = 1
+    # unpadded_curves = []
+    # grbnames = []
+    # errors = []
+    # # Go through alle the files
+    # max_len = 0 # Record longest burst
+    # count = 1
 
-    error_log = ""
+    # error_log = ""
 
     # for file in os.listdir(path):
     #     try: 
@@ -64,7 +64,7 @@ def prepare_lcs():
         
     # Make to DataFrame
     prepared_dataset = pd.DataFrame(prepared_lcs)
-    prepared_dataset.index = grbnames
+    prepared_dataset.index = grbnames[:len(prepared_dataset)]
     prepared_dataset.to_pickle('non_fft_dataset.dat')
     print(prepared_dataset)
 

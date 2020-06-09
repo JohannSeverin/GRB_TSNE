@@ -9,3 +9,7 @@ emb = embedding[:,1:]
 fig, ax = plt.subplots(conf{'figsize'})
 
 emb_plot = ax.scatter(emb[:,0],emb[:,1],s=conf{'radius'},c=conf{'color'},cmap=conf{'cmap'})
+
+cbar = plt.colorbar(emb_plot,ax)
+
+ax.set(yticks = (), xticks = ())
