@@ -15,6 +15,6 @@ conf = {
 
 tsne_params = {
     'perplexity':  35,
-    'verbose':      2,
+    'verbose':     2,  
     'n_iter':   15000,
 }
